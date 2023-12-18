@@ -28,4 +28,5 @@ the program output should be:
 
     1
 ## Checking the program
-The checker.py script tests the programs with several sets of input data and prints out the result
+The checker.py script tests the programs with several sets of input data and prints out the result. A smaple solver is provided in this repository.
+Run it with: ```checker.py sample_solver```
