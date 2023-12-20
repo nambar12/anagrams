@@ -2,8 +2,9 @@
 import os
 import sys
 import time
+import colorama
+from colorama import Fore
 import subprocess
-from colors import *
 
 checks = {
     '1_ang_5000_times.txt': 1,
@@ -26,20 +27,21 @@ def check(program):
             error = error.decode('utf-8')
             output_result(output.strip(), error.strip(), test, finish_time - start_time)
             total_time += finish_time - start_time
-    print(f"{YELLOW}Total time: {total_time:.2f} seconds{RESET}")
+    print(f"{Fore.YELLOW}Total time: {total_time:.2f} seconds{Fore.RESET}")
 
 
 def output_result(output, error, test, test_time):
     if error != '':
-        print(f"{RED}{error}{RESET}")
-    status, color, diff = ('PASS', GREEN, '') if str(checks[test]) == output else ('FAIL', RED, f"{checks[test]} != {output}")
-    print(f"{color}[{status}]{RESET} {test:<25} ({test_time:.2f}) {YELLOW}{diff}{RESET}")
+        print(f"{Fore.RED}{error}{Fore.RESET}")
+    status, color, diff = ('PASS', Fore.GREEN, '') if str(checks[test]) == output else ('FAIL', Fore.RED, f"{checks[test]} != {output}")
+    print(f"{color}[{status}]{Fore.RESET} {test:<25} ({test_time:.2f}) {Fore.YELLOW}{diff}")
 
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Usage: checker.py <program>", file=sys.stderr)
         exit(1)
+    colorama.init(autoreset=True)
     executable = sys.argv[1] if os.path.isabs(sys.argv[1]) else os.path.join(os.path.dirname(os.path.abspath(__file__)), sys.argv[1])
     if not os.path.exists(executable) and not os.access(executable, os.X_OK):
         print("Invalid program (or not executable) <program>", file=sys.stderr)
