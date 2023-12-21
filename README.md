@@ -15,6 +15,7 @@ for the following input:
     abcd
     abdc
     acb
+
 the program output should be:
 
     2
